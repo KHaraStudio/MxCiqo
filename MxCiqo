@@ -1,0 +1,80 @@
+#!/bin/bash
+
+APP="MxCiqo"
+BASE="$HOME/.MxCiqo"
+PLUGINS="$BASE/plugins"
+HOME_DIR="$BASE/home"
+
+OWNER="Khara"
+CONTACT="https://github.com/KHaraStudio"
+VERSION=1.2.rc-2
+USER_NAME=$(whoami)
+
+# Warna
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+shopt -s nullglob
+
+logo() {
+echo -e "${GREEN}███╗░░░███╗██╗░░██╗░█████╗░██╗░██████╗░░█████╗░${NC}"
+echo -e "${GREEN}████╗░████║╚██╗██╔╝██╔══██╗██║██╔═══██╗██╔══██╗${NC}"
+echo -e "${GREEN}██╔████╔██║░╚███╔╝░██║░░╚═╝██║██║██╗██║██║░░██║${NC}"
+echo -e "${GREEN}██║╚██╔╝██║░██╔██╗░██║░░██╗██║╚██████╔╝██║░░██║${NC}"
+echo -e "${GREEN}██║░╚═╝░██║██╔╝╚██╗╚█████╔╝██║░╚═██╔═╝░╚█████╔╝${NC}"
+echo -e "${GREEN}╚═╝░░░░░╚═╝╚═╝░░╚═╝░╚════╝░╚═╝░░░╚═╝░░░░╚════╝░${NC}"
+echo -e "       ${GREEN}M x C i q o     B y     K h A r A${NC}"
+}
+
+usage() {
+  clear
+  logo
+  echo
+  echo -e "${CYAN}[$APP]${NC} ${GREEN}$VERSION${NC}  ${YELLOW}$USER_NAME${NC}"
+  echo -e "${CYAN}────────────────────────────────────────${NC}"
+
+  echo -e "${GREEN}> USAGE${NC}"
+  echo -e "  ${CYAN}$APP${NC} <command> [args]"
+  echo -e "  ${CYAN}$APP${NC} --<option>"
+  echo
+
+  echo -e "${GREEN}> COMMANDS${NC}"
+  for f in "$PLUGINS"/*.sh; do
+    name=$(basename "$f" .sh)
+    desc=$(sed -n 's/^# DESC:[[:space:]]*//p' "$f")
+    printf "  ${CYAN}%-12s${NC} ${YELLOW}%s${NC}\n" "$name" "${desc:-no desc}"
+  done
+  echo
+
+  echo -e "${GREEN}> OPTIONS${NC}"
+  for f in "$HOME_DIR"/*.sh; do
+    name="--$(basename "$f" .sh)"
+    desc=$(sed -n 's/^# DESC:[[:space:]]*//p' "$f")
+    printf "  ${MAGENTA}%-12s${NC} ${YELLOW}%s${NC}\n" "$name" "${desc:-no desc}"
+  done
+
+  echo
+  echo -e "${CYAN}────────────────────────────────────────${NC}"
+}
+
+cmd="$1"
+shift || true
+
+[ -z "$cmd" ] && { usage; exit 0; }
+
+# === handle --option ===
+if [[ "$cmd" == --* ]]; then
+  opt="${cmd#--}"
+  plugin="$BASE/home/$opt.sh"
+else
+  plugin="$PLUGINS/$cmd.sh"
+fi
+
+[ ! -f "$plugin" ] && { echo "Option not found: $cmd"; exit 1; }
+
+bash "$plugin" "$@"
