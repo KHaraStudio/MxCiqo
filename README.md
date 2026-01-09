@@ -4,38 +4,7 @@
   <meta charset="UTF-8">
   <title>MxCiqo — CLI Toolkit</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      background: #0d0d0d;
-      color: #eaeaea;
-      font-family: monospace;
-      line-height: 1.6;
-      padding: 24px;
-    }
-    h1, h2, h3 {
-      color: #00ff88;
-    }
-    code, pre {
-      background: #111;
-      color: #00ffcc;
-      padding: 12px;
-      display: block;
-      overflow-x: auto;
-      border-left: 3px solid #00ff88;
-    }
-    a {
-      color: #00b7ff;
-      text-decoration: none;
-    }
-    .box {
-      border: 1px solid #222;
-      padding: 16px;
-      margin: 16px 0;
-    }
-    .warn {
-      color: #ffaa00;
-    }
-  </style>
+
 </head>
 <body>
 
