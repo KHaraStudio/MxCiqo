@@ -12,7 +12,7 @@
 <p>
   <b>MxCiqo</b> adalah toolkit CLI modular berbasis Bash, dirancang dengan gaya
   <i>semi-hacker</i> untuk kebutuhan <b>OSINT</b>, <b>network inspection</b>,
-  dan <b>utility white-hat</b>.
+  dan <b>utility tools</b>.
 </p>
 
 <div class="box">
